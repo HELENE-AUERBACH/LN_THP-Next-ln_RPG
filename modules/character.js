@@ -38,7 +38,7 @@ class Character {
   }
   
   validateLastSpecialAttack(newLastSpecialAttack) {
-    if (newLastSpecialAttack !== undefined && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack) {
+    if (newLastSpecialAttack !== undefined && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack)) {
       return newLastSpecialAttack;
     } else {
       alert("Le nom de l'attaque portée par le joueur doit être l'une des valeurs suivantes : Normale, Dark Vision, Healing Lighting, Heal, Rage, Shadow hit ou Fireball !");
@@ -55,20 +55,21 @@ class Character {
   }
   
   checkHp(newHp) {
+    let theHp;
     if (newHp !== undefined) {
       if (typeof newHp === 'string') {
-        hp = parseInt(newHp);
+        theHp = parseInt(newHp);
       } else {
-        hp = this._hp + newHp;
+        theHp = this._hp + newHp;
       }
     } else {
-      hp = 0;
+      theHp = 0;
       alert("Ce nombre de points de vie est invalide!");
     }
-    if (hp === 0) {
+    if (theHp === 0) {
       this._status = "loser";
     }
-    return hp;
+    return theHp;
   }
   
   get dmg() {
@@ -80,6 +81,7 @@ class Character {
   }
   
   checkDmg(newDmg) {
+    let dmg;
     if (newDmg !== undefined) {
       if (typeof newDmg === 'string') {
         dmg = parseInt(newDmg);
@@ -102,6 +104,7 @@ class Character {
   }
   
   checkMana(newMana) {
+    let mana;
     if (newMana !== undefined) {
       if (typeof newMana === 'string') {
         mana = parseInt(newMana);

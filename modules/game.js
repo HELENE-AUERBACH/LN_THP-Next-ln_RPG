@@ -24,7 +24,7 @@ class Game {
     if (newTurnLeft >= 1 && newTurnLeft <= 250) {
       return newTurnLeft;
     } else {
-      alert("Le nombre de tours à jouer dans une partie doit être au minimum égal à 1 et au maximum égal à 250!);
+      alert("Le nombre de tours à jouer dans une partie doit être au minimum égal à 1 et au maximum égal à 250!");
       return 1;
     }
   }
