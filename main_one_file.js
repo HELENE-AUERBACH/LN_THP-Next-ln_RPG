@@ -17,7 +17,7 @@ class Character {
   }
   
   validateName(newName) {
-    if (newName !== undefined && newName.length >= 2) {
+    if (newName !== undefined && newName !== null && newName.length >= 2) {
       return newName;
     } else {
       alert("Le nombre de caractères pour le nom du joueur doit être au minimum égal à deux!");
@@ -29,6 +29,19 @@ class Character {
     return this._status;
   }
   
+  set status(newStatus) {
+    this._status = this.validateStatus(newStatus);
+  }
+  
+  validateStatus(newStatus) {
+    if (newStatus !== undefined && newStatus !== null && ["playing", "loser", "winner"].includes(newStatus)) {
+      return newStatus;
+    } else {
+      alert("Le statut d'un joueur ne peut être que playing, loser ou winner!");
+      return 'loser';
+    }
+  }
+  
   get lastSpecialAttack() {
     return this._lastSpecialAttack;
   }
@@ -38,7 +51,7 @@ class Character {
   }
   
   validateLastSpecialAttack(newLastSpecialAttack) {
-    if (newLastSpecialAttack !== undefined && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack)) {
+    if (newLastSpecialAttack !== undefined && newLastSpecialAttack !== null && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack)) {
       return newLastSpecialAttack;
     } else {
       alert("Le nom de l'attaque portée par le joueur doit être l'une des valeurs suivantes : Normale, Dark Vision, Healing Lighting, Heal, Rage, Shadow hit ou Fireball !");
@@ -56,7 +69,7 @@ class Character {
   
   checkHp(newHp) {
     let theHp;
-    if (newHp !== undefined) {
+    if (newHp !== undefined && newHp !== null && !isNaN(newHp)) {
       if (typeof newHp === 'string') {
         theHp = parseInt(newHp);
       } else {
@@ -82,7 +95,7 @@ class Character {
   
   checkDmg(newDmg) {
     let dmg;
-    if (newDmg !== undefined) {
+    if (newDmg !== undefined && newDmg !== null && !isNaN(newDmg)) {
       if (typeof newDmg === 'string') {
         dmg = parseInt(newDmg);
       } else {
@@ -105,7 +118,7 @@ class Character {
   
   checkMana(newMana) {
     let mana;
-    if (newMana !== undefined) {
+    if (newMana !== undefined && newMana !== null && !isNaN(newMana)) {
       if (typeof newMana === 'string') {
         mana = parseInt(newMana);
       } else {
@@ -147,7 +160,7 @@ class Character {
       "Type de la dernière attaque : " +
       this.lastSpecialAttack +
       "\n" +
-      "Status : " +
+      "Statut : " +
       this.status
     );
   }
@@ -199,9 +212,9 @@ class Fighter extends Character {
     if (this._hp > 0) {
       if (this._mana >= 20) {
         if (confirm("Voulez-vous lancer une attaque spéciale Dark Vision?")) {
-	  alert("True pour Dark Vision?");
+	  //alert("True pour Dark Vision?");
           this.lastSpecialAttack = "Dark Vision";
-          this.dealDamage(victim, 5);
+          super.dealDamage(victim, 5);
 	  this.mana = -20;
         } else {
           this.lastSpecialAttack = "Normale";
@@ -235,10 +248,10 @@ class Paladin extends Character {
     if (this._hp > 0) {
       if (this._mana >= 40) {
 	if (confirm("Voulez-vous lancer une attaque spéciale Healing Lighting?")) {
-	  alert("True pour Healing Lighting?");
+	  //alert("True pour Healing Lighting?");
           this.lastSpecialAttack = "Healing Lighting";
 	  this.hp = 5;
-          this.dealDamage(victim, 4);
+          super.dealDamage(victim, 4);
 	  this.mana = -40;
         } else {
           this.lastSpecialAttack = "Normale";
@@ -272,7 +285,7 @@ class Monk extends Character {
     if (this._hp > 0) {
       if (this._mana >= 25) {
         if (confirm("Voulez-vous lancer une attaque spéciale Heal?")) {
-	  alert("True pour Heal?");
+	  //alert("True pour Heal?");
           this.lastSpecialAttack = "Heal";
 	  this.hp = 8;
           super.dealDamage(victim);
@@ -308,7 +321,7 @@ class Berzerker extends Character {
   dealDamage(victim) {
     if (this._hp > 0) {
       if (confirm("Voulez-vous lancer une attaque spéciale Rage?")) {
-	alert("True pour Rage?");
+	//alert("True pour Rage?");
         this.lastSpecialAttack = "Rage";
         this.hp = -1;
         this.dmg = 1;
@@ -341,9 +354,9 @@ class Assassin extends Character {
     if (this._hp > 0) {
       if (this._mana >= 20) {
         if (confirm("Voulez-vous lancer une attaque spéciale Shadow hit?")) {
-	  alert("True pour Shadow hit?");
+	  //alert("True pour Shadow hit?");
           this.lastSpecialAttack = "Shadow hit";
-          this.dealDamage(victim, 7);
+          super.dealDamage(victim, 7);
 	  this.mana = -20;
 	  if (victim._hp > 0) {
             this.hp = -7;
@@ -380,9 +393,9 @@ class Wizard extends Character {
     if (this._hp > 0) {
       if (this._mana >= 25) {
         if (confirm("Voulez-vous lancer une attaque spéciale Fireball?")) {
-	  alert("True pour Fireball?");
+	  //alert("True pour Fireball?");
           this.lastSpecialAttack = "Fireball";
-          this.dealDamage(victim, 7);
+          super.dealDamage(victim, 7);
 	  this.mana = -25;
         } else {
           this.lastSpecialAttack = "Normale";
@@ -432,6 +445,7 @@ class Game {
   newTurn() {
     if (this._turnLeft >= 1) {
       this._turnLeft--;
+      //this._turn = new Turn();
     }
     if (this._turnLeft === 0) {
       this._playersArray.map(function(player) {
@@ -450,13 +464,15 @@ class Game {
 
   reset() {
     let newTurnLeft = prompt("Combien de tours à jouer voulez-vous pour cette partie? (Par défaut, il y en a 10)");
-    if (newTurnLeft === undefined) {
+    //alert("newTurnLeft = " + newTurnLeft);
+    if (newTurnLeft === null) {
       newTurnLeft = 10;
     }
     this.turnLeft = newTurnLeft;
     this.playersArray.map(function(player) {
       player.reset();
     });
+    this._turn = new Turn();
   }
 
   watchStats() {
@@ -481,52 +497,61 @@ class Game {
 }
 
 class Turn {
-  static TURN_NUMBER = 0;
-  static PLAYERS_NUMBERS_ARRAY = [0, 1, 2, 3, 4, 5];
-
-  static reset() {
-    Turn.TURN_NUMBER = 0;
-    Turn.PLAYERS_NUMBERS_ARRAY = [0, 1, 2, 3, 4, 5];
+  constructor() {
+    this.reset();
   }
 
-  static startTurn() {
-    Turn.TURN_NUMBER++;
-    console.log("It's turn " + Turn.TURN_NUMBER);
+  reset() {
+    this._turnNumber = 0;
+    this._playersNumbersArray = [0, 1, 2, 3, 4, 5];
+    console.log("Reset this._turnNumber = " + this._turnNumber + " - this._playersNumbersArray = " + this._playersNumbersArray);
+  }
+
+  startTurn() {
+    this._turnNumber++;
+    this._playersNumbersArray = [0, 1, 2, 3, 4, 5];
+    this._playersNumbersArray.map(function(number) {
+      if (game.playersArray[number].status === "loser") {
+        game._turn._playersNumbersArray.splice(number, 1, -1);
+      }
+    });
+    console.log("It's turn " + this._turnNumber);
+    console.log("this._turnNumber = " + this._turnNumber + " - this._playersNumbersArray = " + this._playersNumbersArray);
   }
 
   static new(game) {
     if (game.turnLeft >= 1 && game.turnLeft <= 250) {
-      Turn.startTurn();
-      Turn.choosePlayer(0, 5, game);
+      game._turn.startTurn();
+      game._turn.choosePlayer(0, 5, game);
     }
   }
 
-  static choosePlayer(min, max, game) {
-    let randomPlayerNumber = Turn.getPlayerNumberRandomly(min, max);
-    if (randomPlayerNumber !== -1) {
+  choosePlayer(min, max, game) {
+    let randomPlayerNumber = game._turn.getPlayerNumberRandomly(min, max, game);
+    while (randomPlayerNumber !== -1) {
       let player = game.playersArray[randomPlayerNumber];
       console.log("It's time for " + player.name + " to play");
       let victimNumber;
       do {
         victimNumber = prompt("Quel est le numéro du joueur que vous voulez attaquer? (compris entre 1 et 6)");
-      } while (victimNumber === undefined || victimNumber < 1 || victimNumber > 6 || game.playersArray[victimNumber - 1].status === "loser");
+      } while (victimNumber === undefined || victimNumber === null || isNaN(victimNumber) || victimNumber < 1 || victimNumber > 6 || game.playersArray[victimNumber - 1].status === "loser");
       let victim = game.playersArray[victimNumber - 1];
       player.dealDamage(victim);
       if (victim.status === "loser") {
         console.log(victim.name + " a été éliminé!");
-        Turn.PLAYERS_NUMBERS_ARRAY.splice(victimNumber - 1, 1, -1);
+        game._turn._playersNumbersArray.splice(victimNumber - 1, 1, -1);
       }
-    } else {
-      console.log("Tous les joueurs ont soit déjà joué dans ce tour, soit déjà été éliminés!");
+      randomPlayerNumber = game._turn.getPlayerNumberRandomly(min, max, game);
     }
+    console.log("Tous les joueurs ont soit déjà joué dans ce tour, soit déjà été éliminés!");
+    game.newTurn();
   }
 
-  static getPlayerNumberRandomly(min, max) {
-    while (Turn.PLAYERS_NUMBERS_ARRAY.filter(function(number) { return number !== -1; }).length > 0) {
+  getPlayerNumberRandomly(min, max, game) {
+    while (game._turn._playersNumbersArray.filter(function(number) { return number !== -1; }).length > 0) {
       let randomPlayerNumber = Turn.getNumberRandomly(min, max);
-      //alert("randomPlayerNumber = " + randomPlayerNumber + " Turn.PLAYERS_NUMBERS_ARRAY.length = " + Turn.PLAYERS_NUMBERS_ARRAY.length);
-      if (Turn.PLAYERS_NUMBERS_ARRAY.includes(randomPlayerNumber)) {
-        Turn.PLAYERS_NUMBERS_ARRAY.splice(randomPlayerNumber, 1, -1);
+      if (game._turn._playersNumbersArray.includes(randomPlayerNumber)) {
+        game._turn._playersNumbersArray.splice(randomPlayerNumber, 1, -1);
         return randomPlayerNumber;
       }
     }
@@ -550,14 +575,12 @@ let game = new Game(playersArray);
 
 function initGame() {
   game.reset();
+  console.log("Ce jeu se jouera au maximum en : " + game.turnLeft + " tour(s).");
   game.watchStats();
-  Turn.reset;
-  alert("turnLeft : " + game.turnLeft + " TURN_NUMBER : " + Turn.TURN_NUMBER);
 }
 
 function startGame() {
   while (game.turnLeft > 0) {
-    alert("turnLeft : " + game.turnLeft + " TURN_NUMBER : " + Turn.TURN_NUMBER);
     Turn.new(game);
     game.watchStats();
     if (game.onlyOnePlayerIsStillAliveOrNone()) {
