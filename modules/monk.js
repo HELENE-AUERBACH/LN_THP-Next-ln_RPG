@@ -7,6 +7,8 @@ class Monk extends Character {
   }
   
   reset() {
+    this._status = "playing";
+    this._lastSpecialAttack = "Normale";
     this.hp = "8";
     this.dmg = "2";
     this.mana = "200";

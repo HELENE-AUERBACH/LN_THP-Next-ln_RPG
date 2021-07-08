@@ -7,6 +7,8 @@ class Wizard extends Character {
   }
   
   reset() {
+    this._status = "playing";
+    this._lastSpecialAttack = "Normale";
     this.hp = "10";
     this.dmg = "2";
     this.mana = "200";

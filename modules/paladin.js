@@ -7,6 +7,8 @@ class Paladin extends Character {
   }
   
   reset() {
+    this._status = "playing";
+    this._lastSpecialAttack = "Normale";
     this.hp = "16";
     this.dmg = "3";
     this.mana = "160";

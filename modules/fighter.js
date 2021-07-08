@@ -7,6 +7,8 @@ class Fighter extends Character {
   }
   
   reset() {
+    this._status = "playing";
+    this._lastSpecialAttack = "Normale";
     this.hp = "12";
     this.dmg = "4";
     this.mana = "40";

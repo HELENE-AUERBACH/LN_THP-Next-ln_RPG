@@ -7,6 +7,8 @@ class Assassin extends Character {
   }
   
   reset() {
+    this._status = "playing";
+    this._lastSpecialAttack = "Normale";
     this.hp = "6";
     this.dmg = "6";
     this.mana = "20";

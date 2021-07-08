@@ -132,7 +132,7 @@ class Character {
       this.name +
       "\n" +
       "Type de joueur :" +
-      typeof this +
+      this.constructor.name +
       "\n" +
       "Points de vie restants :" +
       this.hp +
@@ -147,8 +147,7 @@ class Character {
       this.lastSpecialAttack +
       "\n" +
       "Status :" +
-      this.status +
-      "\n"
+      this.status
     );
   }
   
