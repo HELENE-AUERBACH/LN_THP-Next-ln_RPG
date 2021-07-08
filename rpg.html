@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Partie de jeu vidéo (RPG) en POO en utilisant les classes ES6 de JavaScript</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  
+  <body>
+    <div id="tt1">
+      <h1>RPG</h1>
+    </div>
+    <p>Le but : coder une partie de jeu vidéo (RPG) en POO en utilisant les classes ES6 de JavaScript</p>
+    <p>Click "Play" et ... tape - en cliquant sur "Start Battle" - sur les autres joueurs jusqu'à les tuer tous... :(</p>
+    <input type='text' id='action' readonly='true' value='Battle action' />
+    <div id='status'>
+      <textarea id='p1' class='txt'></textarea>
+      <textarea id='p2' class='txt'></textarea>
+      <textarea id='p3' class='txt'></textarea>
+      <textarea id='p4' class='txt'></textarea>
+      <textarea id='p5' class='txt'></textarea>
+      <textarea id='p6' class='txt'></textarea>
+    </div>
+    <br/>
+    <input type='button' id='binit' class='play' value='Play/Reset' onclick='initGame()'/>
+    <input type='button' id='bplay' class='play' value='Start Battle' onclick='startGame()'/>
+    
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
