@@ -17,7 +17,7 @@ class Character {
   }
   
   validateName(newName) {
-    if (newName !== undefined && newName.length >= 2) {
+    if (newName !== undefined && newName !== null && newName.length >= 2) {
       return newName;
     } else {
       alert("Le nombre de caractères pour le nom du joueur doit être au minimum égal à deux!");
@@ -29,6 +29,19 @@ class Character {
     return this._status;
   }
   
+  set status(newStatus) {
+    this._status = this.validateStatus(newStatus);
+  }
+  
+  validateStatus(newStatus) {
+    if (newStatus !== undefined && newStatus !== null && ["playing", "loser", "winner"].includes(newStatus)) {
+      return newStatus;
+    } else {
+      alert("Le statut d'un joueur ne peut être que playing, loser ou winner!");
+      return 'loser';
+    }
+  }
+  
   get lastSpecialAttack() {
     return this._lastSpecialAttack;
   }
@@ -38,7 +51,7 @@ class Character {
   }
   
   validateLastSpecialAttack(newLastSpecialAttack) {
-    if (newLastSpecialAttack !== undefined && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack)) {
+    if (newLastSpecialAttack !== undefined && newLastSpecialAttack !== null && ["Normale", "Dark Vision", "Healing Lighting", "Heal", "Rage", "Shadow hit", "Fireball"].includes(newLastSpecialAttack)) {
       return newLastSpecialAttack;
     } else {
       alert("Le nom de l'attaque portée par le joueur doit être l'une des valeurs suivantes : Normale, Dark Vision, Healing Lighting, Heal, Rage, Shadow hit ou Fireball !");
@@ -56,7 +69,7 @@ class Character {
   
   checkHp(newHp) {
     let theHp;
-    if (newHp !== undefined) {
+    if (newHp !== undefined && newHp !== null && !isNaN(newHp)) {
       if (typeof newHp === 'string') {
         theHp = parseInt(newHp);
       } else {
@@ -66,7 +79,7 @@ class Character {
       theHp = 0;
       alert("Ce nombre de points de vie est invalide!");
     }
-    if (theHp === 0) {
+    if (theHp <= 0) {
       this._status = "loser";
     }
     return theHp;
@@ -82,7 +95,7 @@ class Character {
   
   checkDmg(newDmg) {
     let dmg;
-    if (newDmg !== undefined) {
+    if (newDmg !== undefined && newDmg !== null && !isNaN(newDmg)) {
       if (typeof newDmg === 'string') {
         dmg = parseInt(newDmg);
       } else {
@@ -105,7 +118,7 @@ class Character {
   
   checkMana(newMana) {
     let mana;
-    if (newMana !== undefined) {
+    if (newMana !== undefined && newMana !== null && !isNaN(newMana)) {
       if (typeof newMana === 'string') {
         mana = parseInt(newMana);
       } else {
@@ -146,35 +159,35 @@ class Character {
       "Type de la dernière attaque :" +
       this.lastSpecialAttack +
       "\n" +
-      "Status :" +
+      "Statut :" +
       this.status
     );
   }
   
   takeDamage(receivedDmg) {
-    if (this._hp !== 0) {
+    if (this._hp > 0) {
       if (receivedDmg > 0) {
         this.hp = -1 * receivedDmg;
       }
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus être attaqué!");
+      alert(this.name + " a déjà été éliminé et ne peut plus être attaqué!");
     }
   }
   
   dealDamage(victim, givenDmg = this._dmg) {
-    if (victim._hp !== 0) {
+    if (victim._hp > 0) {
       if (victim.lastSpecialAttack === "Dark Vision" && givenDmg >= 2) {
         givenDmg -= 2;
       } else if (victim.lastSpecialAttack === "Shadow hit") {
 	givenDmg = 0;
       }
       victim.takeDamage(givenDmg);
-      if (victim._hp === 0) {
+      if (victim._hp <= 0) {
         this.mana = 20;
       }
       console.log(this.name + " is attacking " + victim.name + ". He deals him " + givenDmg + " damages. " + victim.name + " got " + victim._hp + " lifepoints left.");
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus être attaqué!");
+      alert(this.name + " a déjà été éliminé et ne peut plus jouer!");
     }
   } 
 }

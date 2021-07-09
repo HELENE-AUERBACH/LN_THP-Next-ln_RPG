@@ -18,14 +18,14 @@ class Wizard extends Character {
     if (this._hp > 0) {
       if (this._mana >= 25 && confirm("Voulez-vous lancer une attaque spéciale Fireball?")) {
         this.lastSpecialAttack = "Fireball";
-        this.dealDamage(victim, 7);
+        super.dealDamage(victim, 7);
 	this.mana = -25;
       } else {
         this.lastSpecialAttack = "Normale";
-        this.dealDamage(victim);
+        super.dealDamage(victim);
       }
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus jouer!");
+      alert(this.name + " a déjà été éliminé et ne peut plus jouer!");
     }
   }
 }

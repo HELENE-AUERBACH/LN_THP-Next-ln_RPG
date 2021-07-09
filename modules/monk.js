@@ -19,14 +19,14 @@ class Monk extends Character {
       if (this._mana >= 25 && confirm("Voulez-vous lancer une attaque spéciale Heal?")) {
         this.lastSpecialAttack = "Heal";
 	this.hp = 8;
-        this.dealDamage(victim);
+        super.dealDamage(victim);
 	this.mana = -25;
       } else {
         this.lastSpecialAttack = "Normale";
-        this.dealDamage(victim);
+        super.dealDamage(victim);
       }
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus jouer!");
+      alert(this.name + " a déjà été éliminé et ne peut plus jouer!");
     }
   }
 }

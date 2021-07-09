@@ -1,3 +1,5 @@
+import { Turn } from './turn.js';
+
 class Game {
   constructor(playersArray, turnLeft = 10) {
     this._playersArray = playersArray;
@@ -50,13 +52,14 @@ class Game {
   
   reset() {
     let newTurnLeft = prompt("Combien de tours à jouer voulez-vous pour cette partie? (Par défaut, il y en a 10)");
-    if (newTurnLeft === undefined) {
+    if (newTurnLeft === null) {
       newTurnLeft = 10;
     }
     this.turnLeft = newTurnLeft;
     this.playersArray.map(function(player) {
       player.reset();
     });
+    this._turn = new Turn();
   }
   
   watchStats() {

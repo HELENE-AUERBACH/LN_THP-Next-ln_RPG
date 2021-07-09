@@ -19,14 +19,14 @@ class Paladin extends Character {
       if (this._mana >= 40 && confirm("Voulez-vous lancer une attaque spéciale Healing Lighting?")) {
         this.lastSpecialAttack = "Healing Lighting";
 	this.hp = 5;
-        this.dealDamage(victim, 4);
+        super.dealDamage(victim, 4);
 	this.mana = -40;
       } else {
         this.lastSpecialAttack = "Normale";
-        this.dealDamage(victim);
+        super.dealDamage(victim);
       }
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus jouer!");
+      alert(this.name + " a déjà été éliminé et ne peut plus jouer!");
     }
   }
 }

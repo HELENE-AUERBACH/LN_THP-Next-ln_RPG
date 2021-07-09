@@ -19,15 +19,16 @@ let game = new Game(playersArray);
 
 function initGame() {
   game.reset();
+  console.log("Ce jeu se jouera au maximum en " + game.turnLeft + " tour(s).");
   game.watchStats();
 }
 
 function startGame() {
   while (game.turnLeft > 0) {
     Turn.new(game);
+    game.watchStats();
     if (game.onlyOnePlayerIsStillAliveOrNone()) {
       break;
     }
   }
-  game.watchStats();
 }

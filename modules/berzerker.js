@@ -20,13 +20,13 @@ class Berzerker extends Character {
         this.lastSpecialAttack = "Rage";
         this.hp = -1;
         this.dmg = 1;
-        this.dealDamage(victim);
+        super.dealDamage(victim);
       } else {
         this.lastSpecialAttack = "Normale";
-        this.dealDamage(victim);
+        super.dealDamage(victim);
       }
     } else {
-      alert("Ce joueur a déjà été éliminé et ne peut plus jouer!");
+      alert(this.name + " a déjà été éliminé et ne peut plus jouer!");
     }
   }
 }
