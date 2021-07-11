@@ -1,7 +1,7 @@
 class Character {
   constructor(name) {
     this._name = this.validateName(name);
-    this.reset();
+    this.resetCharacter();
   }
   
   get name() {
@@ -131,7 +131,7 @@ class Character {
     return mana;
   }
   
-  reset() {
+  resetCharacter() {
     this._status = "playing";
     this._lastSpecialAttack = "Normale";
     this._hp = this.checkHp("1");
@@ -141,25 +141,25 @@ class Character {
   
   getAllInfo() {
     return (
-      "Name :" +
+      "Name : " +
       this.name +
       "\n" +
-      "Type de joueur :" +
+      "Type de joueur : " +
       this.constructor.name +
       "\n" +
-      "Points de vie restants :" +
+      "Points de vie restants : " +
       this.hp +
       "\n" +
-      "Points de dégât infligés lors d'une attaque normale :" +
+      "Points de dégât infligés lors d'une attaque normale : " +
       this.dmg +
       "\n" +
-      "Points de mana restants :" +
+      "Points de mana restants : " +
       this.mana +
       "\n" +
-      "Type de la dernière attaque :" +
+      "Type de la dernière attaque : " +
       this.lastSpecialAttack +
       "\n" +
-      "Statut :" +
+      "Statut : " +
       this.status
     );
   }
@@ -191,5 +191,3 @@ class Character {
     }
   } 
 }
-
-export { Character };

@@ -1,5 +1,3 @@
-import { Turn } from './turn.js';
-
 class Game {
   constructor(playersArray, turnLeft = 10) {
     this._playersArray = playersArray;
@@ -82,5 +80,3 @@ class Game {
     p6.value = this._playersArray[5].getAllInfo();
   }
 }
-
-export { Game };

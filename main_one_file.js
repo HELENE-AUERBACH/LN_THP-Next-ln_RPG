@@ -537,6 +537,7 @@ class Turn {
       } while (victimNumber === undefined || victimNumber === null || isNaN(victimNumber) || victimNumber < 1 || victimNumber > 6 || game.playersArray[victimNumber - 1].status === "loser");
       let victim = game.playersArray[victimNumber - 1];
       player.dealDamage(victim);
+      game.watchStats();
       if (victim.status === "loser") {
         console.log(victim.name + " a été éliminé!");
         game._turn._playersNumbersArray.splice(victimNumber - 1, 1, -1);

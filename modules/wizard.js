@@ -1,5 +1,3 @@
-import { Character } from './character.js';
-
 class Wizard extends Character {
   constructor(name) {
     super(name);
@@ -7,8 +5,7 @@ class Wizard extends Character {
   }
   
   reset() {
-    this._status = "playing";
-    this._lastSpecialAttack = "Normale";
+    this.resetCharacter();
     this.hp = "10";
     this.dmg = "2";
     this.mana = "200";
@@ -29,5 +26,3 @@ class Wizard extends Character {
     }
   }
 }
-
-export { Wizard };

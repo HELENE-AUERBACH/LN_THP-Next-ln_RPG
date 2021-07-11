@@ -1,5 +1,3 @@
-import { Character } from './character.js';
-
 class Berzerker extends Character {
   constructor(name) {
     super(name);
@@ -7,8 +5,7 @@ class Berzerker extends Character {
   }
   
   reset() {
-    this._status = "playing";
-    this._lastSpecialAttack = "Normale";
+    this.resetCharacter();
     this.hp = "8";
     this.dmg = "4";
     this.mana = "0";
@@ -30,5 +27,3 @@ class Berzerker extends Character {
     }
   }
 }
-
-export { Berzerker };
